@@ -40,29 +40,35 @@ bool Event :: CheckName(std :: string x)
 {
     if ((x.empty()))
     {
-        std ::cout << "Empty input is invaild for event name .";
-        return false;
+        throw std :: invalid_argument( "Empty input is invaild.");
     }
     return true;
 }
 bool Event :: CheckDate(std :: string date)
 {
-     if (date.length() != 10 ||  date[2] != '/' ||  date[5] != '/') {
-            return false;
+     if(date.length() != 10 ||  date[2] != '/' ||  date[5] != '/') {
+        throw std :: invalid_argument( "invalid date");
         }
         std::string day = date.substr(0, 2);
         std::string month = date.substr(3, 2);
         std::string year = date.substr(6, 4);
 
-        return isNumber(day) && isNumber(month) && isNumber(year) &&
-               std::stoi(day) >= 1 && std::stoi(day) <= 31 &&
-               std::stoi(month) >= 1 && std::stoi(month) <= 12;
+               if( isNumber(day) && isNumber(month) && isNumber(year) &&
+               (std::stoi(day) >= 1 && std::stoi(day) <= 31) &&
+               (std::stoi(month) >= 1 && std::stoi(month)) <= 12)
+               {
+                return true;
+               }
+               else 
+               {
+                throw std :: invalid_argument( "invalid date");
+               }
     }
 //Set implemention
 void Event ::SetEventName(std ::string name)
 {
     if(CheckName(name))
-    EventName = name;
+    this->EventName = name;
 }
 void Event ::SetEventDateStart(std ::string start)
 {
@@ -70,22 +76,26 @@ void Event ::SetEventDateStart(std ::string start)
    
     std ::string day = start.substr(0, 2), month = start.substr(3, 2), year = start.substr(6, 4);
     
-        StartDate = ConvertDateToTimestamps(day, month, year);
-        Start = start;
+        this->StartDate = ConvertDateToTimestamps(day, month, year);
+        this->Start = start;
     }
-    else std :: cout << "invalid Date";
+    else{
+     std :: cout << "invalid Date";
+     return;}
 }
 void Event ::SetEventDateEnd(std ::string end)
 {
         if(CheckDate(end) && CheckName(end)){
    
     std ::string day = end.substr(0, 2), month = end.substr(3, 2), year = end.substr(6, 4);
-        EndDate = ConvertDateToTimestamps(day, month, year);
-        End = end;
+        this->EndDate = ConvertDateToTimestamps(day, month, year);
+        this->End = end;
     }
-    else std :: cout << "invalid Date";
+    else {
+    std :: cout << "invalid Date";
+    return ;}
 }
-void Event ::SetPass() { Passed = true; }
+void Event ::SetPass() { this->Passed = true; }
 //Get implemntion
 std ::string Event ::GetEventName() const { return EventName; }
 std ::string Event ::GetEventStart() const { return Start; }

@@ -10,7 +10,7 @@ private:
     time_t EndDate;
     std :: string Start;
     std :: string End;
-    bool Passed ;
+    bool Passed = false;
 
 public:
     //check function

@@ -12,9 +12,10 @@ private:
     std ::vector<Event> v;
 
 public:
+    
     Calendar(const Event & );
-
-    void Add_Event(std ::string Eventstart, std ::string EventEnd, std ::string Eventname); // 12\02\1403
+    void PrintCalendar();
+    void Add_Event(const Event & ); // 12\02\1403
     void Refresh();
 };
 
